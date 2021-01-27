@@ -1,4 +1,4 @@
-FROM node:15-alpine
+FROM node:15-buster-slim
 
 LABEL maintainer="Kittitach Piyamapornchai <bankgg@gmail.com>"
 

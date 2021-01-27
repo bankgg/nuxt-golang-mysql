@@ -1,4 +1,4 @@
-FROM node:14.11-buster-slim
+FROM node:15-alpine
 
 LABEL maintainer="Kittitach Piyamapornchai <bankgg@gmail.com>"
 
@@ -9,7 +9,8 @@ ENV APP_ROOT /src
 WORKDIR ${APP_ROOT}
 COPY . ${APP_ROOT}
 
-RUN npm i
-RUN npm run build
+RUN yarn install
+RUN yarn build
+RUN yarn cache clean
 
 ENV HOST 0.0.0.0

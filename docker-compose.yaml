@@ -1,0 +1,62 @@
+version: "3"
+
+services:
+  client:
+    build:
+      context: ./client
+    container_name: client
+    ports:
+      - "80:3000"
+    command: "yarn start"
+    depends_on:
+      - server
+    networks:
+      - frontend
+
+  server:
+    build:
+      context: ./server
+    container_name: server
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: sample
+    command: [ "mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_general_ci" ]
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - backend
+      - database
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
+    networks:
+      - database
+    depends_on:
+      - db
+
+networks:
+  frontend:
+  backend:
+  database:
+
+volumes:
+  dbdata:

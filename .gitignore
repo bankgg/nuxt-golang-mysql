@@ -1,0 +1,14 @@
+.idea
+
+client/node_modules
+client/.nuxt
+client/dist
+
+server/*.exe
+server/*.exe~
+server/*.dll
+server/*.so
+server/*.dylib
+server/*.test
+server/*.out
+server/.idea

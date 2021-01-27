@@ -9,6 +9,7 @@ ENV APP_ROOT /src
 WORKDIR ${APP_ROOT}
 COPY . ${APP_ROOT}
 
-RUN yarn build
+RUN npm i
+RUN npm run build
 
 ENV HOST 0.0.0.0
